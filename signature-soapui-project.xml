@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project activeEnvironment="Default" name="dsecccc" resourceRoot="" soapui-version="4.5.1" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" wsaVersion="NONE" name="SecureServiceServiceSoapBinding" type="wsdl" bindingName="{http://wss.gss.redhat.com/}SecureServiceServiceSoapBinding" soapVersion="1_1" anonymous="optional" definition="http://192.168.1.66:8080/jbossws-sign-encrypt/SecureService?wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://192.168.1.66:8080/jbossws-sign-encrypt/SecureService?wsdl"><con:part><con:url>http://192.168.1.66:8080/jbossws-sign-encrypt/SecureService?wsdl</con:url><con:content><![CDATA[<wsdl:definitions name="SecureServiceService" targetNamespace="http://wss.gss.redhat.com/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsp="http://schemas.xmlsoap.org/ws/2004/09/policy" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://wss.gss.redhat.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http">
+  <wsdl:types>
+    <xs:schema elementFormDefault="unqualified" targetNamespace="http://wss.gss.redhat.com/" version="1.0" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="sayGoodbye" type="tns:sayGoodbye"/>
+      <xs:element name="sayGoodbyeResponse" type="tns:sayGoodbyeResponse"/>
+      <xs:element name="sayHello" type="tns:sayHello"/>
+      <xs:element name="sayHelloResponse" type="tns:sayHelloResponse"/>
+      <xs:complexType name="sayGoodbye">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sayGoodbyeResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sayHello">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="sayHelloResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="xs:string"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="sayHello">
+    <wsdl:part element="tns:sayHello" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sayHelloResponse">
+    <wsdl:part element="tns:sayHelloResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sayGoodbye">
+    <wsdl:part element="tns:sayGoodbye" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="sayGoodbyeResponse">
+    <wsdl:part element="tns:sayGoodbyeResponse" name="parameters"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SecureService">
+    <wsdl:operation name="sayGoodbye">
+      <wsdl:input message="tns:sayGoodbye" name="sayGoodbye"></wsdl:input>
+      <wsdl:output message="tns:sayGoodbyeResponse" name="sayGoodbyeResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sayHello">
+      <wsdl:input message="tns:sayHello" name="sayHello"></wsdl:input>
+      <wsdl:output message="tns:sayHelloResponse" name="sayHelloResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SecureServiceServiceSoapBinding" type="tns:SecureService">
+    <wsp:PolicyReference URI="#SecurityServiceSignThenEncryptPolicy"/>
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="sayGoodbye">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sayGoodbye">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sayGoodbyeResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="sayHello">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="sayHello">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="sayHelloResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SecureServiceService">
+    <wsdl:port binding="tns:SecureServiceServiceSoapBinding" name="SecureServicePort">
+      <soap:address location="http://192.168.1.66:8080/jbossws-sign-encrypt/SecureService"/>
+    </wsdl:port>
+  </wsdl:service>
+  <wsp:Policy wsu:Id="SecurityServiceSignThenEncryptPolicy" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+    <wsp:ExactlyOne>
+      <wsp:All>
+        <sp:AsymmetricBinding xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <wsp:Policy>
+            <sp:InitiatorToken>
+              <wsp:Policy>
+                <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/AlwaysToRecipient">
+                  <wsp:Policy>
+                    <sp:WssX509V1Token11/>
+                  </wsp:Policy>
+                </sp:X509Token>
+              </wsp:Policy>
+            </sp:InitiatorToken>
+            <sp:RecipientToken>
+              <wsp:Policy>
+                <sp:X509Token sp:IncludeToken="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy/IncludeToken/Never">
+                  <wsp:Policy>
+                    <sp:WssX509V1Token11/>
+                  </wsp:Policy>
+                </sp:X509Token>
+              </wsp:Policy>
+            </sp:RecipientToken>
+            <sp:AlgorithmSuite>
+              <wsp:Policy>
+                <sp:TripleDes/>
+              </wsp:Policy>
+            </sp:AlgorithmSuite>
+            <sp:Layout>
+              <wsp:Policy>
+                <sp:Lax/>
+              </wsp:Policy>
+            </sp:Layout>
+            <!--<sp:IncludeTimestamp/>-->
+            <!--<sp:EncryptSignature/>-->
+            <!--<sp:OnlySignEntireHeadersAndBody/>-->
+            <!--<sp:SignBeforeEncrypting/>-->
+          </wsp:Policy>
+        </sp:AsymmetricBinding>
+        <sp:SignedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">
+          <sp:Body/>
+        </sp:SignedParts>
+        <!--<sp:EncryptedParts xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">-->
+        <!--<sp:Body/>-->
+        <!--</sp:EncryptedParts>-->
+        <!--<sp:Wss10 xmlns:sp="http://schemas.xmlsoap.org/ws/2005/07/securitypolicy">-->
+        <!--<wsp:Policy>-->
+        <!--<sp:MustSupportRefIssuerSerial/>-->
+        <!--</wsp:Policy>-->
+        <!--</sp:Wss10>-->
+      </wsp:All>
+    </wsp:ExactlyOne>
+  </wsp:Policy>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://192.168.1.66:8080/jbossws-sign-encrypt/SecureService</con:endpoint></con:endpoints><con:operation isOneWay="false" action="" name="sayGoodbye" bindingOperationName="sayGoodbye" type="Request-Response" outputName="sayGoodbyeResponse" inputName="sayGoodbye" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.66:8080/jbossws-sign-encrypt/SecureService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wss="http://wss.gss.redhat.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wss:sayGoodbye>
+         <!--Optional:-->
+         <arg0>?</arg0>
+      </wss:sayGoodbye>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wss.gss.redhat.com/SecureService/sayGoodbye"/></con:call></con:operation><con:operation isOneWay="false" action="" name="sayHello" bindingOperationName="sayHello" type="Request-Response" outputName="sayHelloResponse" inputName="sayHello" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call name="Request 1" outgoingWss="sign"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://192.168.1.66:8080/jbossws-sign-encrypt/SecureService</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wss="http://wss.gss.redhat.com/">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <wss:sayHello>
+         <arg0>Kyle</arg0>
+      </wss:sayHello>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://wss.gss.redhat.com/SecureService/sayHello"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer><con:crypto><con:source>/Users/klape/support/jbossws-sign-encrypt/src/main/resources/client.keystore</con:source><con:password>password</con:password><con:type>KEYSTORE</con:type></con:crypto><con:outgoing><con:name>sign</con:name><con:entry type="Signature" username="client" password="password"><con:configuration><crypto>client.keystore</crypto><keyIdentifierType>1</keyIdentifierType><signatureAlgorithm/><signatureCanonicalization/><useSingleCert>false</useSingleCert><digestAlgorithm/><signaturePart>&lt;xml-fragment xmlns:con="http://eviware.com/soapui/config">
+  &lt;con:entry key="id" value=""/>
+  &lt;con:entry key="name" value=""/>
+  &lt;con:entry key="namespace" value="http://scemas.xmlsoap.org/soap/envelope/"/>
+&lt;/xml-fragment></signaturePart></con:configuration></con:entry></con:outgoing></con:wssContainer><con:sensitiveInformation/></con:soapui-project>
