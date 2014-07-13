@@ -24,7 +24,8 @@ public class SecureClient {
 
   public void invoke() throws Exception {
     //Create JAX-WS client
-    URL wsdl = new URL("http://localhost:8080/jbossws-sign-encrypt/SecureService?wsdl");
+    // URL wsdl = new URL("http://localhost:8080/jbossws-sign-encrypt/SecureService?wsdl");
+    URL wsdl = getClass().getResource("/secureService.wsdl");
     QName serviceNS = new QName("http://wss.gss.redhat.com/", "SecureServiceService");
     QName portNS = new QName("http://wss.gss.redhat.com/", "SecureServicePort");
     Service service = Service.create(wsdl, serviceNS);
@@ -32,6 +33,7 @@ public class SecureClient {
 
     Map<String, Object> ctx = ((BindingProvider)port).getRequestContext();
 
+    ctx.put(BindingProvider.ENDPOINT_ADDRESS_PROPERTY, "http://localhost:8080/jbossws-sign-encrypt/SecureService");
     ctx.put(SecurityConstants.CALLBACK_HANDLER, new KeystorePasswordCallback());
     
     //Signature/encrypt properties file defines the keystore to use for incoming and outgoing messages
