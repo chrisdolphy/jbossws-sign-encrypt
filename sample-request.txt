@@ -1,0 +1,19 @@
+POST /jbossws-sign-encrypt/SecureService HTTP/1.1
+Accept-Encoding: gzip,deflate
+Content-Type: text/xml;charset=UTF-8
+SOAPAction: ""
+Content-Length: 3225
+Host: localhost:10002
+Connection: Keep-Alive
+User-Agent: Apache-HttpClient/4.1.1 (java 1.5)
+
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:wss="http://wss.gss.redhat.com/">
+   <soapenv:Header><wsse:Security xmlns:wsse="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-secext-1.0.xsd" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd"><wsse:BinarySecurityToken EncodingType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-soap-message-security-1.0#Base64Binary" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509PKIPathv1" wsu:Id="X509-A65FB75FA9DCE8074F1403907509100133">MIICOzCCAjcwggGgoAMCAQICBFET4/YwDQYJKoZIhvcNAQEFBQAwYDELMAkGA1UEBhMCVVMxCzAJBgNVBAgTAk5DMRAwDgYDVQQHEwdSYWxlaWdoMRAwDgYDVQQKEwdSZWQgSGF0MQwwCgYDVQQLEwNHU1MxEjAQBgNVBAMTCUt5bGUgTGFwZTAeFw0xMzAyMDcxNzI3MThaFw0yMzAyMDUxNzI3MThaMGAxCzAJBgNVBAYTAlVTMQswCQYDVQQIEwJOQzEQMA4GA1UEBxMHUmFsZWlnaDEQMA4GA1UEChMHUmVkIEhhdDEMMAoGA1UECxMDR1NTMRIwEAYDVQQDEwlLeWxlIExhcGUwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANWfYeYrF+i46nAkJIjZAC0YqH1/IC31rl93z90ktMxL/fEpocXtmtEr+0EShCoFIE8X7OsRerKABIyoeUqYxRKvLkEao9p0+gRD8EdybASDrHzFWLowsZ1xsYiNYAKIAai5jo1BImCih4ljPf/8GMgjo151a38BFZ1wkYhFW7D1AgMBAAEwDQYJKoZIhvcNAQEFBQADgYEAy8t4+fMxoOk72p+Javab0DT6R0+vDy7vNxVrBE8H2TBZ9yXci+C/9N5YDiIy5/dx//RBdVtTe77NdsaeyLWNiPUAM3ZjxPLech3hTBcEuA6Yb1oB38g8SwbbCeOWS3RPrNH1445/lvCgg2EdGsrlIzvynioiwaNuFOOFC8uJiTk=</wsse:BinarySecurityToken><ds:Signature Id="SIG-78" xmlns:ds="http://www.w3.org/2000/09/xmldsig#"><ds:SignedInfo><ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"><ec:InclusiveNamespaces PrefixList="soapenv wss" xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:CanonicalizationMethod><ds:SignatureMethod Algorithm="http://www.w3.org/2000/09/xmldsig#rsa-sha1"/><ds:Reference URI="#id-77"><ds:Transforms><ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"><ec:InclusiveNamespaces PrefixList="wss" xmlns:ec="http://www.w3.org/2001/10/xml-exc-c14n#"/></ds:Transform></ds:Transforms><ds:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1"/><ds:DigestValue>JaByqj6fXp1BMZ7yUhVvsErgk1g=</ds:DigestValue></ds:Reference></ds:SignedInfo><ds:SignatureValue>AOiMwvw93XZ7IrxLu8EO4/CDaBHfhBJ4SjakaS4DkjQJSv6tzRGsy626UM9kr2EF71wg0y6fAr+2
+rf0EPBhX+Z3bIU1rc+RE+Q57toDCPHhUVL3JKpabON+Gf2JPWYOWzu3jeUDrrwA/NJ1ztV3BzL4V
+BXbaCdQgJS+FfFp8bHc=</ds:SignatureValue><ds:KeyInfo Id="KI-A65FB75FA9DCE8074F1403907509100134"><wsse:SecurityTokenReference wsse11:TokenType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509PKIPathv1" wsu:Id="STR-A65FB75FA9DCE8074F1403907509100135" xmlns:wsse11="http://docs.oasis-open.org/wss/oasis-wss-wssecurity-secext-1.1.xsd"><wsse:Reference URI="#X509-A65FB75FA9DCE8074F1403907509100133" ValueType="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-x509-token-profile-1.0#X509PKIPathv1"/></wsse:SecurityTokenReference></ds:KeyInfo></ds:Signature></wsse:Security></soapenv:Header>
+   <soapenv:Body wsu:Id="id-77" xmlns:wsu="http://docs.oasis-open.org/wss/2004/01/oasis-200401-wss-wssecurity-utility-1.0.xsd">
+      <wss:sayHello>
+         <arg0>Kyle</arg0>
+      </wss:sayHello>
+   </soapenv:Body>
+</soapenv:Envelope>
