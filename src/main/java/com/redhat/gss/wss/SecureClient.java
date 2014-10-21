@@ -1,17 +1,21 @@
 package com.redhat.gss.wss;
 
 import java.net.URL;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 import javax.xml.namespace.QName;
-import javax.xml.ws.Service;
 import javax.xml.ws.BindingProvider;
-import org.apache.cxf.frontend.ClientProxy;
+import javax.xml.ws.Service;
+
 import org.apache.cxf.endpoint.Client;
 import org.apache.cxf.endpoint.Endpoint;
+import org.apache.cxf.frontend.ClientProxy;
 import org.apache.cxf.ws.security.SecurityConstants;
 import org.apache.cxf.ws.security.wss4j.WSS4JInInterceptor;
 import org.apache.cxf.ws.security.wss4j.WSS4JOutInterceptor;
+import org.apache.ws.security.components.crypto.Merlin;
+
 import org.jboss.logging.Logger;
 
 public class SecureClient {
@@ -36,7 +40,16 @@ public class SecureClient {
     
     //Signature/encrypt properties file defines the keystore to use for incoming and outgoing messages
     ClassLoader tccl = Thread.currentThread().getContextClassLoader();
-    ctx.put(SecurityConstants.SIGNATURE_PROPERTIES, getClass().getResource("/security-client.properties"));
+
+    Properties p = new Properties();
+    p.setProperty("org.apache.ws.security.crypto.provider","org.apache.ws.security.components.crypto.Merlin");
+    p.setProperty("org.apache.ws.security.crypto.merlin.keystore.type","jks");
+    p.setProperty("org.apache.ws.security.crypto.merlin.keystore.password","password");
+    p.setProperty("org.apache.ws.security.crypto.merlin.keystore.alias","client");
+    p.setProperty("org.apache.ws.security.crypto.merlin.keystore.file","client.keystore");
+
+    log.warn("Setting merlin!!");
+    ctx.put(SecurityConstants.SIGNATURE_CRYPTO, new Merlin(p, tccl));
     ctx.put(SecurityConstants.ENCRYPT_PROPERTIES, getClass().getResource("/security-client.properties"));
     
     //Signautre/encrypt username defines which keystore alias to use on outgoing messages
@@ -45,5 +58,8 @@ public class SecureClient {
 
     //Invoke client
     log.info("Output of sayHello operation: " + port.sayHello("Kyle"));
+  }
+
+  public static void getClientProps() {
   }
 }
