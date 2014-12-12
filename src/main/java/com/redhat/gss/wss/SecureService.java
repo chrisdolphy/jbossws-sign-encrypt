@@ -5,7 +5,9 @@ import org.jboss.ws.api.annotation.EndpointConfig;
 import org.jboss.logging.Logger;
 
 @javax.jws.WebService(wsdlLocation="WEB-INF/wsdl/secureService.wsdl")
-@EndpointConfig(configFile = "WEB-INF/jaxws-endpoint-config.xml", configName = "Custom WS-Security Endpoint")
+// @EndpointConfig(configFile = "WEB-INF/jaxws-endpoint-config.xml", configName = "Custom WS-Security Endpoint")
+@org.apache.cxf.annotations.Logging(pretty=true)
+@InInterceptors(interceptors={"com.redhat.gss.wss.PropertyReaderInterceptor"})
 public class SecureService {
   public String sayHello(String name) {
     return "Hello, " + name;
